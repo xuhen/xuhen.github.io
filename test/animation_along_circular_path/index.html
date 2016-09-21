@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CSS Cookbook</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	@keyframes spin {
+		to { transform: rotate(1turn); }
+	}
+	.path {
+		background-color: #FFC20A;
+		width: 300px;
+		height: 300px;
+		border-radius: 50%;
+		
+	}
+	.path .avatar {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		margin-left: 125px;
+		animation: spin 9s infinite linear;
+		transform-origin: 50% 150px;
+		border: 1px solid white;
+		overflow: hidden;
+		animation-play-state: paused;
+	}
+	.path img {
+		width: 100%;
+		animation: inherit;
+		animation-direction: reverse;
+		animation-play-state: paused;
+	}
+	.path:hover .avatar, .path:focus .avatar, .path:hover img, .path:focus img{
+		animation-play-state: running;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="path">
+		<div class="avatar">
+			<img src="me.jpg"  />
+		</div>
+	</div>
+
+	
+</body>
+</html>

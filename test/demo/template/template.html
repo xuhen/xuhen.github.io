@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Demo</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+</head>
+<body style="background-color: #F3F3F4;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+
+            <div>普通输入框</div>
+            <input type="text" class="form-control normal-input" placeholder="Enter email">
+
+            <div>点击变高表单</div>
+            <textarea class="form-control change-height-input"></textarea>
+
+            <div>带搜索图标的input</div>
+            <div class="form-group search-input">
+                <label class="right">
+                    <i class="fa fa-search"></i>
+                </label>
+                <input type="email" class="form-control" placeholder="搜索昵称/姓名/手机号/订单号">
+            </div>
+
+            <div>带加号的input组件</div>
+            <div class="input-group plus-input">
+                <input type="text" class="form-control" placeholder="输入后按回车键">
+                <span class="input-group-addon">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div>带下拉列表的input组件</div>
+            <div class="dropdown dropdown-input">
+                <input type="text" class="form-control normal-input" placeholder="输入后按回车键">
+                <ul class="dropdown-menu">
+                    <li>王鑫</li>
+                    <li>周杰伦</li>
+                    <li>王兴龙</li>
+                    <li>葛优</li>
+                    <li>周杰伦</li>
+                    <li>王兴龙</li>
+                    <li>葛优</li>
+                    <li>王鑫</li>
+                    <li>周杰伦</li>
+                    <li>王兴龙</li>
+                    <li>葛优</li>
+                    <li>周杰伦</li>
+                    <li>王兴龙</li>
+                    <li>葛优</li>
+                </ul>
+                <ul class="dropdown-menu no-result">
+                    <li>无结果</li>
+                    <li>新建</li>
+                </ul>
+            </div>
+
+            <div>带图片的下拉列表</div>
+            <div class="dropdown dropdown-image">
+                <input type="text" class="form-control normal-input" placeholder="输入后按回车键">
+                <ul class="dropdown-menu">
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+                    <li class="card-wrapper">
+                        <div class="left">
+                            <img src="../images/photo.jpg" />
+                        </div>
+                        <div class="right">
+                            <div>李国富</div>
+                            <div class="phone">13456545434</div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div>带checkbox的下拉列表</div>
+            <div class="dropdown dropdown-checkbox">
+                <div class="input-group plus-input">
+                    <input type="text" class="form-control" placeholder="输入后按回车键">
+                    <span class="input-group-addon">
+                        <span>添加</span>
+                    </span>
+                </div>
+                <ul class="dropdown-menu">
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="goods-wrapper">
+                        <div class="left">
+                            <input type="checkbox" class="custom-checkbox" />
+                        </div>
+                        <div class="right">
+                            <div class="title">龙抬头复方手参丸 0.3g*156粒 ¥56.00</div>
+                            <div class="content">
+                                <span>分类价格厂家</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>带徽章的下拉列表组件</div>
+            <div class="dropdown dropdown-badge">
+                <div class="input-group plus-input">
+                    <input type="text" class="form-control" placeholder="输入后按回车键">
+                    <span class="input-group-addon">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <ul class="dropdown-menu">
+                    <li>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                        <span class="badge-wrapper">
+                            <span class="custom-badge">苹果味</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>按钮式下拉列表</div>
+            <div class="btn-group btn-list">
+                <button type="button" class="btn btn-default">
+                    <span>上架</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        上架gggggggggggggggg
+                    </li>
+                    <li>下架</li>
+                    <li>删除</li>
+                </ul>
+            </div>
+
+            <div>自定义分页</div>
+            <nav class="custom-pager">
+                <ul class="pagination">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                    <li><a href="#">尾页(6)</a></li>
+                </ul>
+            </nav>
+
+            <div>带checkbox的商品卡片</div>
+            <div class="goods-card">
+                <div class="header">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <span class="status">已上架</span>
+                    </div>
+                    <div class="right">2016-02-21 16:45</div>
+                </div>
+                <div class="content">
+                    <div class="left">
+                        <img src="../images/photo.jpg" />
+                        <span>功夫熊猫生日蛋糕(18寸)</span>
+                    </div>
+                    <div class="right">
+                        <span class="price">¥3456.87</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>人物名片</div>
+            <div class="person-card">
+                <div class="header">
+                    <img src="../images/photo.jpg">
+                    <span class="name">小马尾</span>
+                </div>
+                <div class="content">
+                    <div>手机 14588888888</div>
+                    <div>卡号 6466646464646466</div>
+                </div>
+                <div class="footer">
+                    接诊
+                </div>
+            </div>
+
+            <div>自定义导航</div>
+            <ul class="nav nav-tabs custom-nav">
+                <li class="active"><a href="#">基本信息</a></li>
+                <li><a href="#">标签</a></li>
+                <li><a href="#">余额</a></li>
+                <li><a href="#">消费</a></li>
+                <li><a href="#">积分</a></li>
+                <li><a href="#">关系</a></li>
+                <li><a href="#">日志</a></li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+
+            <div>普通按钮</div>
+            <button type="button" class="btn btn-default normal-btn">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                导入会员
+            </button>
+            <div>没有边框的按钮</div>
+            <button type="button" class="btn btn-default no-border-btn">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                导入会员
+            </button>
+            <div>填充了的按钮</div>
+            <button type="button" class="btn btn-default filled-btn">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                导入会员
+            </button>
+            <div>自定义关闭徽章</div>
+            <span class="custom-badge">
+                苹果味
+                <i class="fa fa-minus-square" aria-hidden="true"></i>
+            </span>
+            <div style="background-color: white;">
+                <div>自定义checkbox</div>
+                <input type="checkbox" class="custom-checkbox" checked />
+                <input type="checkbox" class="custom-checkbox" />
+                <input type="checkbox" class="custom-checkbox" />
+                <input type="checkbox" class="custom-checkbox" />
+            </div>
+            <div style="background-color: white;">
+                <div>自定义radio</div>
+                <input type="radio" name="radio-set" class="custom-radio" checked />
+                <input type="radio" name="radio-set" class="custom-radio" />
+                <input type="radio" name="radio-set" class="custom-radio" />
+                <input type="radio" name="radio-set" class="custom-radio" />
+            </div>
+            <div>登录按钮组件</div>
+            <button type="button" class="btn btn-default custom-login-btn">登录</button>
+            <div>带checkbox的按钮</div>
+            <button type="button" class="btn btn-default button-checkbox">
+                <input type="checkbox" class="custom-checkbox" />
+                <span class="text">全选</span>
+            </button>
+
+            <div style="background-color: white;">
+                <div>药丸徽章</div>
+                <span class="pill-badge">
+                    <span class="left active">充值记录</span>
+                    <span class="right">扣款记录</span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div>自定义面包屑</div>
+            <ol class="breadcrumb custom-breadcrumb">
+                <li><a href="#">系统管理</a></li>
+                <li><a href="#">用户管理</a></li>
+                <li><a href="#">用户列表</a></li>
+            </ol>
+
+            <div>上传框</div>
+            <div class="upload-box">
+                <div class="empty">
+                    <div class="font-wrapper">
+                        <i class="fa fa-image" aria-hidden="true"></i>
+                    </div>
+                    <p class="hint">点击上传</p>
+                </div>
+                <!--<div class="img-wrapper">-->
+                    <!--<img src="../images/photo.jpg" >-->
+                    <!--<div class="close-wrapper">-->
+                        <!--<i class="fa fa-close" aria-hidden="true"></i>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background-color: white;">
+        <div class="col-md-16">
+            <div>订单面板</div>
+            <div class="order-panel">
+                <div class="order-title">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <span class="status">已支付(团购)</span>
+                        <span class="order">TR233443333449999894</span>
+                    </div>
+                    <div class="right">
+                        <span class="order-date">2016-02-23 16:47</span>
+                    </div>
+                </div>
+                <div class="order-person">
+                    <div class="left">
+                        <img src="../images/photo.jpg" />
+                        <span class="name">左手教父</span>
+                    </div>
+                    <div class="right">
+                        <span class="glyphicon glyphicon-earphone"></span>
+                        <span>15634564577</span>
+                    </div>
+                </div>
+                <div class="order-goods">
+                    <div class="left">
+                        <img src="../images/photo.jpg" />
+                        <span class="name">功夫熊猫生日蛋糕(18寸) *183</span>
+                    </div>
+                    <div class="right">
+                        <span>¥3455.55</span>
+                    </div>
+                </div>
+                <div class="order-goods">
+                    <div class="left">
+                        <img src="../images/photo.jpg" />
+                        <span class="name">功夫熊猫生日蛋糕(18寸) *183</span>
+                    </div>
+                    <div class="right">
+                        <span>¥3455.55</span>
+                    </div>
+                </div>
+                <div class="order-footer">
+                    <span class="text">总价:</span>
+                    <span>¥5667.44</span>
+                </div>
+            </div>
+
+            <div>时间线</div>
+            <div class="timeline">
+                <div class="date">
+                    <div>2016.04.23 12:34</div>
+                    <div>老板来一碗,微信渠道,下单</div>
+                    <span class="point"></span>
+                </div>
+                <div class="date line-inactive">
+                    <div>2016.04.23 12:34</div>
+                    <div>老板来一碗,微信渠道,下单</div>
+                    <span class="point"></span>
+                </div>
+                <div class="date date-inactive">
+                    <div>2016.04.23 12:34</div>
+                    <div>老板来一碗,微信渠道,下单</div>
+                    <span class="point"></span>
+                </div>
+                <div class="point-date date-inactive">
+                    <div>2016.04.23 12:34</div>
+                    <div>老板来一碗,微信渠道,下单</div>
+                    <span class="point"></span>
+                </div>
+            </div>
+
+            <div>模态框</div>
+            <!--<div class="custom-modal">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+                        <!--<div class="modal-title" id="myModalLabel">修改</div>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<div>-->
+                            <!--<span>分享描述:</span>-->
+                            <!--<input type="text" class="form-control normal-input" placeholder="Enter email" style="display: inline-block;width: 200px;">-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<span>分享描述:</span>-->
+                            <!--<input type="text" class="form-control normal-input" placeholder="Enter email" style="display: inline-block;width: 200px;">-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<span>分享描述:</span>-->
+                            <!--<input type="text" class="form-control normal-input" placeholder="Enter email" style="display: inline-block;width: 200px;">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                        <!--<button type="button" class="btn btn-default normal-btn">-->
+                            <!--取消-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-default normal-btn">-->
+                            <!--保存-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div>自定义面板</div>
+            <div class="panel panel-default custom-panel">
+                <div class="panel-heading">修改用户资料</div>
+                <div class="panel-body">
+                    <div>Panel content</div>
+                    <div>Panel content</div>
+                    <div>Panel content</div>
+                    <div>Panel content</div>
+                    <div>Panel content</div>
+                    <div>Panel content</div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-default normal-btn">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-default normal-btn">
+                        保存
+                    </button>
+                </div>
+            </div>
+
+            <div>选择框列表</div>
+            <div class="checkbox-list">
+                <div class="check-item">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <img src="../images/photo.jpg" />
+                        <span>吐司面包(kg)</span>
+                    </div>
+                    <div class="right">
+                        <span>¥328.32</span>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <img src="../images/photo.jpg" />
+                        <span>吐司面包(kg)</span>
+                    </div>
+                    <div class="right">
+                        <span>¥328.32</span>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <img src="../images/photo.jpg" />
+                        <span>吐司面包(kg)</span>
+                    </div>
+                    <div class="right">
+                        <span>¥328.32</span>
+                    </div>
+                </div>
+                <div class="check-item">
+                    <div class="left">
+                        <input type="checkbox" class="custom-checkbox" />
+                        <img src="../images/photo.jpg" />
+                        <span>吐司面包(kg)</span>
+                    </div>
+                    <div class="right">
+                        <span>¥328.32</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>居中提示框</div>
+            <!--<div class="center-modal">-->
+                <!--<div class="wrapper">-->
+                    <!--<div class="hint">-->
+                        <!--<div class="box"></div>-->
+                        <!--<i class="fa fa-exclamation-circle"></i>-->
+                    <!--</div>-->
+                    <!--<div class="text">-->
+                        <!--<span>保持成功</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div>展开式面板</div>
+            <div class="expand-panel">
+                <div class="title">
+                    <div class="left">
+                        龙抬头复方产物
+                    </div>
+                    <div class="right">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="content">
+                    <input type="text" class="form-control normal-input" placeholder="Enter email">
+                </div>
+                <div class="dropdown-wrapper">
+                    <div class="left">
+                        <input type="text" class="form-control normal-input" placeholder="Enter email">
+                    </div>
+                    <div class="right">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="hidden-wrapper">
+                    <div>规格: NC43565366</div>
+                    <div>价格: ¥43</div>
+                    <div class="dropup-wrapper">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">.col-md-4</div>
+    </div>
+</div>
+
+</body>
+</html>

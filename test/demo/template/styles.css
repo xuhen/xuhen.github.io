@@ -6843,6 +6843,9 @@ button.close {
 }
 .form-control {
   color: #333333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .normal-input {
   border-radius: 2px;
@@ -6968,13 +6971,12 @@ label {
 .custom-badge {
   background-color: #F39B24;
   color: #FFFFFF;
-  -webkit-border-radius: ;
-  -moz-border-radius: ;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   display: inline-block;
   font-size: 12px;
   padding-left: 6px;
-  padding-top: 2px;
   padding-right: 4px;
 }
 .custom-badge > .fa {
@@ -6985,6 +6987,7 @@ label {
 }
 input[type="checkbox"] {
   padding: 7px;
+  border: 0;
 }
 input[type="checkbox"]:focus {
   outline: 0;
@@ -6996,6 +6999,7 @@ input[type="checkbox"]:focus {
   border-radius: 1px;
   display: inline-block;
   position: relative;
+  border: none;
 }
 .custom-checkbox:checked {
   background-color: #F39B24;
@@ -7003,10 +7007,10 @@ input[type="checkbox"]:focus {
   color: #FFFFFF;
 }
 .custom-checkbox:checked:after {
-  content: '\2714';
-  font-size: 12px;
+  content: '\2713';
+  font-size: 14px;
   position: absolute;
-  top: 0px;
+  top: -2px;
   left: 2px;
   color: #FFFFFF;
 }

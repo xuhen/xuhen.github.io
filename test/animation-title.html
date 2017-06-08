@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <style type="text/css">
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-size: 50px;
+      /*font-family: "Source Sans Pro", sans-serif;*/
+      color: #aebcb9;
+      background-color: #0d0d0d;
+    }
+    .cd-headline.rotate-1 .cd-words-wrapper {
+      display: inline-block;
+      perspective: 300px;
+    }
+
+    .cd-intro {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      height: 100vh;
+    }
+
+    .cd-headline.rotate-1 b {
+      opacity: 0;
+      transform-origin: 50% 100%;
+      transform: rotateX(180deg);
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 128px;
+    }
+
+    .cd-headline.rotate-1 b.is-visible {
+      position: relative;
+      opacity: 1;
+      transform: rotateX(0deg);
+      animation: cd-rotate-1-in 1.2s;
+    }
+    .cd-headline.rotate-1 b.is-hidden {
+      transform: rotateX(180deg);
+      animation: cd-rotate-1-out 1.2s;
+    }
+
+    @keyframes cd-rotate-1-in {
+      0% {
+        transform: rotateX(180deg);
+        opacity: 0;
+      }
+      35% {
+        transform: rotateX(120deg);
+        opacity: 0;
+      }
+      65% {
+        opacity: 0;
+      }
+      100% {
+        transform: rotateX(360deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes cd-rotate-1-out {
+      0% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+      35% {
+        transform: rotateX(-40deg);
+        opacity: 1;
+      }
+      65% {
+        opacity: 0;
+      }
+      100% {
+        transform: rotateX(180deg);
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="cd-intro">
+    <div class="cd-headline rotate-1">
+      <span>CSS Is </span>
+      <span class="cd-words-wrapper">
+        <b class="is-visible">Marvelous</b>
+        <b>Fantastic</b>
+        <b>Admirable</b>
+      </span>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    var animationDelay = 2500;
+
+    animateHeadline($('.cd-headline'));
+
+    function animateHeadline($headlines) {
+      $headlines.each(function(){
+        var headline = $(this);
+        setTimeout(function(){
+          hideWord( headline.find('.is-visible') )
+        }, animationDelay);
+      });
+    }
+
+    function hideWord($word) {
+      var nextWord = takeNext($word);
+      switchWord($word, nextWord);
+      setTimeout(function(){
+        hideWord(nextWord)
+      }, animationDelay);
+    }
+
+    function takeNext($word) {
+      return (!$word.is(':last-child')) ? $word.next() : $word.parent().children().eq(0);
+    }
+
+    function switchWord($oldWord, $newWord) {
+      $oldWord.removeClass('is-visible').addClass('is-hidden');
+      $newWord.removeClass('is-hidden').addClass('is-visible');
+    }
+  </script>
+
+
+
+</body>
+
+</html>
+
+
+

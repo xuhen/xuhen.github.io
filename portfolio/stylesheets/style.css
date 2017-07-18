@@ -280,10 +280,15 @@ browsers) */
 }
 
 img {
-  opacity: 1;
-  transition: opacity .3s;
+  will-change: transform, opacity;
+  animation: reveal 1s ease-out;
 }
 
 img[data-src] {
-  opacity: 0;
+  transform: scale(1.05);
+}
+
+@keyframes reveal {
+  0% { transform: scale(1.05); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }

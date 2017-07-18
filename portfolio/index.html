@@ -55,28 +55,28 @@
     <section class="portfolio">
 
       <figure class="three columns all poster" data-category="poster">
-        <img src="images/image-1.jpeg" alt="This is 1st portfolio thumbnail.">
+        <img data-src="images/image-1.jpeg" alt="This is 1st portfolio thumbnail.">
           <figcaption>
             <h4>Lorem Ipsum</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
           </figcaption>
       </figure>
       <figure class="three columns all illustration" data-category="illustration">
-        <img src="images/image-2.jpeg" alt="This is 2nd portfolio thumbnail.">
+        <img data-src="images/image-2.jpeg" alt="This is 2nd portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all poster" data-category="poster">
-        <img src="images/image-3.jpeg" alt="This is 3rd portfolio thumbnail.">
+        <img data-src="images/image-3.jpeg" alt="This is 3rd portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all typography" data-category="typography">
-        <img src="images/image-4.jpeg" alt="This is 4th portfolio thumbnail.">
+        <img data-src="images/image-4.jpeg" alt="This is 4th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
@@ -84,28 +84,28 @@
       </figure>
 
       <figure class="three columns all illustration" data-category="illustration">
-        <img src="images/image-5.jpeg" alt="This is 5th portfolio thumbnail.">
+        <img data-src="images/image-5.jpeg" alt="This is 5th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all poster" data-category="poster">
-        <img src="images/image-6.jpeg" alt="This is 6th portfolio thumbnail.">
+        <img data-src="images/image-6.jpeg" alt="This is 6th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all illustration" data-category="illustration">
-        <img src="images/image-7.jpeg" alt="This is 7th portfolio thumbnail.">
+        <img data-src="images/image-7.jpeg" alt="This is 7th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all typography " data-category="typography">
-        <img src="images/image-8.jpeg" alt="This is 8th portfolio thumbnail.">
+        <img data-src="images/image-8.jpeg" alt="This is 8th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
@@ -113,28 +113,28 @@
       </figure>
 
       <figure class="three columns all package" data-category="package">
-        <img src="images/image-9.jpeg" alt="This is 8th portfolio thumbnail.">
+        <img data-src="images/image-9.jpeg" alt="This is 8th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all poster" data-category="poster">
-        <img src="images/image-10.jpeg" alt="This is 9th portfolio thumbnail.">
+        <img data-src="images/image-10.jpeg" alt="This is 9th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all package " data-category="package">
-        <img src="images/image-11.jpeg" alt="This is 10th portfolio thumbnail.">
+        <img data-src="images/image-11.jpeg" alt="This is 10th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
         </figcaption>
       </figure>
       <figure class="three columns all illustration" data-category="illustration">
-        <img src="images/image-12.jpeg" alt="This is 10th portfolio thumbnail.">
+        <img data-src="images/image-12.jpeg" alt="This is 10th portfolio thumbnail.">
         <figcaption>
           <h4>Lorem Ipsum</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie lobortis magna eget sagittis.</p>
@@ -166,6 +166,16 @@
       </ul>
     </div>
   </footer>
+
+  <script type="text/javascript">
+
+    [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+      img.setAttribute('src', img.getAttribute('data-src'));
+      img.onload = function() {
+        img.removeAttribute('data-src');
+      };
+    });
+  </script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -278,3 +278,12 @@ browsers) */
     display: block;
   }
 }
+
+img {
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+img[data-src] {
+  opacity: 0;
+}

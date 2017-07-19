@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
 
+
   <title>加载更多</title>
   <style type="text/css">
 
@@ -14,20 +15,25 @@
       margin: 0;
       padding: 0;
     }
+
     .page {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      overflow: auto;
+      height: 100vh;
+      width: 100%;
+      overflow-y: scroll;
+      -webkit-overflow-y: scroll;
       overflow-scrolling: touch;
       -webkit-overflow-scrolling: touch;
-      /*border: 1px solid red;*/
+      -webkit-transform: translateZ(0px);
+      -webkit-transform: translate3d(0,0,0);
+      -webkit-perspective: 1000;
+      z-index: 2;
+      border: 1px solid red;
     }
 
     .img-wrapper {
       border: 10px solid black;
+      z-index: 10;
     }
     .img-wrapper img {
       display: block;
@@ -113,14 +119,13 @@
     var page = document.querySelector('.page');
     var panel = document.querySelector('.img-panel');
     var loader = document.querySelector('.spinner');
+    var document = document.querySelector('document');
     loader.style.display = "none";
 
     var imgArr = [
     "http://xuheng.inject.top/images/img_parallax1.jpg",
     "http://xuheng.inject.top/images/img_parallax2.jpg",
-    "http://xuheng.inject.top/images/img_parallax3.jpg",
-    // "photographer.jpg",
-    // "team1.jpg"
+    "http://xuheng.inject.top/images/img_parallax3.jpg"
     ];
 
     var loadMore = function() {
@@ -156,7 +161,6 @@
         loadMore();
       }
     });
-
 
 
 

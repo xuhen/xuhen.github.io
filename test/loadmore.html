@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+
+  <title>加载更多</title>
+  <style type="text/css">
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .page {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow: auto;
+      overflow-scrolling: touch;
+      -webkit-overflow-scrolling: touch;
+      /*border: 1px solid red;*/
+    }
+
+    .img-wrapper {
+      border: 10px solid black;
+    }
+    .img-wrapper img {
+      display: block;
+      width: 100%;
+    }
+
+    img {
+      will-change: transform, opacity;
+      animation: reveal 1s ease-out;
+    }
+
+    img[data-src] {
+      transform: scale(1.05);
+    }
+
+    @keyframes reveal {
+      0% { transform: scale(1.05); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+
+    .spinner {
+      margin: 20px auto 20px;
+      width: 70px;
+      text-align: center;
+      display: none;
+    }
+
+    .spinner > div {
+      width: 18px;
+      height: 18px;
+      background-color: #333;
+
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+
+    @-webkit-keyframes sk-bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes sk-bouncedelay {
+      0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      } 40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="img-panel"></div>
+
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+
+    var page = document.querySelector('.page');
+    var panel = document.querySelector('.img-panel');
+    var loader = document.querySelector('.spinner');
+    loader.style.display = "none";
+
+    var imgArr = [
+    "http://xuheng.inject.top/images/img_parallax1.jpg",
+    "http://xuheng.inject.top/images/img_parallax2.jpg",
+    "http://xuheng.inject.top/images/img_parallax3.jpg",
+    // "photographer.jpg",
+    // "team1.jpg"
+    ];
+
+    var loadMore = function() {
+      loader.style.display = "block";
+      setTimeout(function() {
+        for (var i = 0; i < 3; i++) {
+          var div = document.createElement('div');
+          div.className = "img-wrapper";
+          var img = document.createElement('img');
+          img.setAttribute('data-src', imgArr[i]);
+          div.appendChild(img);
+          panel.appendChild(div);
+        }
+        loader.style.display = "none";
+      }, 500);
+
+
+      setTimeout(function() {
+        [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+          img.setAttribute('src', img.getAttribute('data-src'));
+          img.onload = function() {
+            img.removeAttribute('data-src');
+          };
+        });
+      }, 800);
+    }
+
+
+
+    page.addEventListener('scroll', function() {
+      // console.log(page.scrollTop, page.clientHeight, page.scrollHeight);
+      if (page.scrollTop + page.clientHeight >= page.scrollHeight) {
+        loadMore();
+      }
+    });
+
+
+
+
+    loadMore();
+  </script>
+
+
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>图片展示上传</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style type="text/css">
+    .btn:focus, .upload-btn:focus{
+      outline: 0 !important;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background-color: #4791D2;
+    }
+
+    body {
+      text-align: center;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .row {
+      margin-top: 80px;
+    }
+
+    .upload-btn {
+      color: #ffffff;
+      background-color: #F89406;
+      border: none;
+    }
+
+    .upload-btn:hover,
+    .upload-btn:focus,
+    .upload-btn:active,
+    .upload-btn.active {
+      color: #ffffff;
+      background-color: #FA8900;
+      border: none;
+    }
+
+    h4 {
+      padding-bottom: 30px;
+      color: #B8BDC1;
+    }
+
+    .glyphicon {
+      font-size: 5em;
+      color: #9CA3A9;
+    }
+
+    h2 {
+      margin-top: 15px;
+      color: #68757E;
+    }
+
+    .panel {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    #upload-input {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .main-container {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .container {
+        width: 450px;
+      }
+    }
+    .align-left {
+      text-align: left;
+    }
+
+    .img-wrapper img {
+      width: 100%;
+    }
+    .submit-wrapper {
+      margin-top: 12px;
+      text-align: right;
+    }
+
+    .none {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <h2>图片上传</h2>
+            <!-- <h4>awesome.io</h4> -->
+
+            <form>
+              <div class="form-group align-left">
+                <label for="title">图片标题</label>
+                <input type="text" class="form-control" placeholder="标题" id="title">
+              </div>
+              <div class="form-group align-left">
+                <label for="description">图片描述</label>
+                <textarea rows="3" class="form-control" id="description" placeholder="图片描述"></textarea>
+              </div>
+              <div class="form-group img-wrapper none">
+                <img src="https://xuheng-notes.herokuapp.com/uploads/4e5e9607-7691-c194-c636-2475dece1a8b.jpg" id="image">
+              </div>
+            </form>
+            <div class="progress none">
+              <div class="progress-bar" role="progressbar"></div>
+            </div>
+            <button class="btn btn-lg upload-btn" type="button">上传图片</button>
+
+            <div class='submit-wrapper'>
+              <button type="button" class="btn btn-primary" id="submit">提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+  <script >
+
+    var imgDomain = "https://xuheng-notes.herokuapp.com/uploads/";
+    var apiDomain = "https://xuheng-notes.herokuapp.com";
+    var src = '';
+    var msg;
+
+    $('.upload-btn').on('click', function (){
+      $('#upload-input').click();
+      $('.progress-bar').text('0%');
+      $('.progress-bar').width('0%');
+    });
+
+    $('#upload-input').on('change', function(){
+
+      $(".none").show();
+
+      var files = $(this).get(0).files;
+
+      if (files.length > 0){
+        var formData = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+
+          formData.append('uploads[]', file, file.name);
+        }
+
+        $.ajax({
+          url: apiDomain + "/" + "upload",
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data){
+
+            $('.img-wrapper img').attr('src', imgDomain+data.src);
+            src = data.src;
+            console.log(data);
+          },
+          xhr: function() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.upload.addEventListener('progress', function(evt) {
+
+              if (evt.lengthComputable) {
+                var percentComplete = evt.loaded / evt.total;
+                percentComplete = parseInt(percentComplete * 100);
+
+                $('.progress-bar').text(percentComplete + '%');
+                $('.progress-bar').width(percentComplete + '%');
+
+                if (percentComplete === 100) {
+                  $('.progress-bar').html('完成');
+                }
+
+              }
+
+            }, false);
+
+            return xhr;
+          }
+        });
+
+      }
+    });
+
+
+    $("#submit").click(function() {
+      if (checkNotValid()) {
+        alert(msg);
+        return;
+      }
+      var postData = {
+        title: $("#title").val(),
+        src: src,
+        description: $("#description").val()
+      };
+      console.log(postData);
+      $.post(apiDomain+'/'+'notes', postData, function(res) {
+        console.log(res);
+        alert("提交成功，蟹蟹你的图片！！");
+      });
+    });
+
+    function checkNotValid() {
+      var title = $("#title").val();
+      var description = $("#description").val();
+      // var src = src;
+      if (title.trim() === "") {
+        msg = "标题必填";
+        return true;
+      } else if (description.trim() === "") {
+        msg = "图片描述必填";
+        return true;
+      } else if (src === "") {
+        msg = "图片必上传";
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+
+  </script>
+</body>
+</html>

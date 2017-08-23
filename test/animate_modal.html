@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <style type="text/css">
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /*@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);*/
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      border: 1px solid red;
+    }
+
+    .blur-it {
+      filter: blur(4px);
+    }
+
+    a.btn {
+      width: 200px;
+      padding: 18px 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #fff;
+      border-radius: 0;
+      background: #e2525c;
+    }
+
+    .modal-wrapper {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(41, 171, 164, 0.8);
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.25s ease-in-out;
+    }
+
+    .modal-wrapper.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      width: 100%;
+      height: 400px;
+      display: block;
+      position: relative;
+      background: #fff;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+      top: -100%;
+    }
+
+    .modal-wrapper.open .modal {
+      opacity: 1;
+      top: 20%;
+    }
+
+    .head {
+      height: 64px;
+      padding: 12px 30px;
+      overflow: hidden;
+      background: #e2525c;
+    }
+
+    .btn-close {
+      font-size: 28px;
+      display: block;
+      float: right;
+      color: #fff;
+    }
+
+    .content {
+      padding: 10%;
+    }
+
+    .good-job {
+      text-align: center;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      color: #e2525c;
+    }
+
+
+  </style>
+</head>
+
+<body onload="load()">
+
+  <!-- Button -->
+  <div class="page-wrapper">
+    <a class="btn trigger" href="#" id="trigger">click me</a>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-wrapper">
+    <div class="modal">
+      <div class="head">
+        <span class="btn-close trigger" id="close">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          关闭
+        </span>
+      </div>
+      <div class="content">
+        <div class="good-job">
+          <h1>Good Job!</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    function load() {
+      var trigger = document.querySelector('#trigger');
+      var modal = document.querySelector('.modal-wrapper');
+      var page = document.querySelector('.page-wrapper');
+      var close = document.querySelector('#close');
+
+        trigger.addEventListener('click', function() {
+          modal.classList.toggle('open');
+          page.classList.toggle('blur-it');
+          console.log('id1');
+        });
+        close.addEventListener('click', function() {
+          modal.classList.toggle('open');
+          page.classList.toggle('blur-it');
+          console.log('id1');
+        });
+    }
+
+
+  </script>
+
+
+
+</body>
+
+</html>
+
+
+

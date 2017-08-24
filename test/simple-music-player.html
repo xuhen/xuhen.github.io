@@ -17,12 +17,19 @@
       margin: 0;
       padding: 0;
     }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #43C6AC;
+    }
 
     #audioplayer{
+      /*width: 480px;*/
       width: 480px;
       height: 60px;
-      margin: 50px auto auto auto;
-      border: solid;
+      margin: 200px auto auto auto;
+      border: solid #F8FFAE;
     }
 
     #pButton{
@@ -40,12 +47,14 @@
     .pause{background: url('http://www.alexkatz.me/codepen/img/pause.png') ;}
 
     #timeline{
-      width: 400px;
+      /*width: 400px;*/
+      width: calc(100% - 60px);
       height: 20px;
       margin-top: 20px;
       float: left;
       border-radius: 15px;
-      background: rgba(0,0,0,.3);
+      /*background: rgba(0,0,0,.3);*/
+      background: rgba(248, 255, 174, .3);
 
     }
     #playhead{
@@ -53,7 +62,7 @@
       height: 18px;
       border-radius: 50%;
       margin-top: 1px;
-      background: rgba(0, 0, 0,1);
+      background: #4E75B9;
 
     }
 

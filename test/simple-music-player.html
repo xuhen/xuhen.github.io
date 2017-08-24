@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <style type="text/css">
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #audioplayer{
+      width: 480px;
+      height: 60px;
+      margin: 50px auto auto auto;
+      border: solid;
+    }
+
+    #pButton{
+      height:60px;
+      width: 60px;
+      border: none;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      float:left;
+      outline:none;
+    }
+
+    .play{background: url('http://www.alexkatz.me/codepen/img/play.png') ;}
+    .pause{background: url('http://www.alexkatz.me/codepen/img/pause.png') ;}
+
+    #timeline{
+      width: 400px;
+      height: 20px;
+      margin-top: 20px;
+      float: left;
+      border-radius: 15px;
+      background: rgba(0,0,0,.3);
+
+    }
+    #playhead{
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      margin-top: 1px;
+      background: rgba(0, 0, 0,1);
+
+    }
+
+
+
+  </style>
+</head>
+
+<body >
+
+  <audio id="music" preload="true">
+    <source src="http://www.alexkatz.me/codepen/music/interlude.mp3">
+      <source src="http://www.alexkatz.me/codepen/music/interlude.ogg">
+      </audio>
+
+      <div id="audioplayer">
+        <button id="pButton" class="play"></button>
+        <div id="timeline">
+          <div id="playhead"></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        var music = document.getElementById('music');
+        var duration = music.duration;
+        var pButton = document.getElementById('pButton');
+        var playhead = document.getElementById('playhead');
+        var timeline = document.getElementById('timeline');
+
+        var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+
+        pButton.addEventListener("click", play);
+
+        music.addEventListener("timeupdate", timeUpdate, false);
+
+        timeline.addEventListener("click", function(event) {
+          moveplayhead(event);
+          music.currentTime = duration * clickPercent(event);
+        }, false);
+
+        function clickPercent(event) {
+          return (event.clientX - getPosition(timeline)) / timelineWidth;
+        }
+
+        playhead.addEventListener('mousedown', mouseDown, false);
+        window.addEventListener('mouseup', mouseUp, false);
+
+        var onplayhead = false;
+
+        function mouseDown() {
+          onplayhead = true;
+          window.addEventListener('mousemove', moveplayhead, true);
+          music.removeEventListener('timeupdate', timeUpdate, false);
+        }
+
+        function mouseUp(event) {
+          if (onplayhead == true) {
+            moveplayhead(event);
+            window.removeEventListener('mousemove', moveplayhead, true);
+            music.currentTime = duration * clickPercent(event);
+            music.addEventListener('timeupdate', timeUpdate, false);
+          }
+          onplayhead = false;
+        }
+        function moveplayhead(event) {
+          var newMargLeft = event.clientX - getPosition(timeline);
+
+          if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+            playhead.style.marginLeft = newMargLeft + "px";
+          }
+          if (newMargLeft < 0) {
+            playhead.style.marginLeft = "0px";
+          }
+          if (newMargLeft > timelineWidth) {
+            playhead.style.marginLeft = timelineWidth + "px";
+          }
+        }
+
+        function timeUpdate() {
+          var playPercent = timelineWidth * (music.currentTime / duration);
+          playhead.style.marginLeft = playPercent + "px";
+          if (music.currentTime == duration) {
+            pButton.className = "";
+            pButton.className = "play";
+          }
+        }
+
+        function play() {
+          if (music.paused) {
+            music.play();
+            pButton.className = "";
+            pButton.className = "pause";
+          } else {
+            music.pause();
+            pButton.className = "";
+            pButton.className = "play";
+          }
+        }
+
+        music.addEventListener("canplaythrough", function() {
+          duration = music.duration;
+        }, false);
+
+        function getPosition(el) {
+          return el.getBoundingClientRect().left;
+        }
+
+      </script>
+
+
+    </body>
+
+    </html>
+
+
+

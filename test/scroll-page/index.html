@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>stroll.js - CSS3 Scroll Effects</title>
+
+		<meta name="description" content="A collection of CSS3 scroll effects and animations.">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="example.css">
+		<link rel="stylesheet" href="stroll.css">
+
+		<!-- Styles specifically for the mobile demo page -->
+		<style>
+			ul li {
+				-webkit-transform: translate3d( 0, 0, 1px );
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+				margin-bottom: 6px;
+
+			}
+			ul li.cache {
+				-webkit-transform: rotateY( 1deg );
+			}
+			ul img {
+				width: 100%;
+				display: block;
+			}
+			ul .content {
+				padding: 12px;
+			}
+			ul .title {
+				font-size: 18px;
+				margin-bottom: 12px;
+			}
+			ul .text {
+				font-size: 14px;
+				color: #999999;
+				line-height: 22px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<ul class="example-list wave">
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+			<li class="cache">
+				<img src="http://xuheng.inject.top/images/img_parallax1.jpg">
+				<div class="content">
+					<div class="title">猫的舞步</div>
+					<div class="text">
+						人类对猫的喜爱是无需赘言的，风靡的“吸猫文化”就是最好的佐证，可以说，在我们驯化的所有物种中
+					</div>
+				</div>
+			</li>
+
+
+		</ul>
+
+		<script src="stroll.js"></script>
+
+		<script>
+			(function(){
+
+				// Keep the list height in sync with the window height
+				window.addEventListener( 'orientationchange', updateHeight, false );
+				window.addEventListener( 'resize', updateHeight, false );
+
+				var IS_ANDROID = navigator.userAgent.match( /android/gi ),
+					IS_IPHONE = navigator.userAgent.match( /iphone/gi );
+
+				var exampleList = document.querySelector( '.example-list' );
+
+
+				if( IS_ANDROID ) {
+					document.body.classList.add( 'android' );
+
+					var exampleElements = exampleList.querySelectorAll( 'li' );
+
+					for( var i = 0, len = exampleElements.length; i < len; i++ ) {
+						exampleElements[i].classList.remove( 'cache' );
+					}
+				}
+
+				updateHeight();
+
+				/**
+				 * Updates the list height to match the window height for
+				 * the demo. Also re-binds the list with stroll.js.
+				 */
+				function updateHeight() {
+					exampleList.style.height = window.innerHeight + 'px';
+					stroll.bind( 'ul' );
+				}
+
+			})();
+		</script>
+
+	</body>
+</html>

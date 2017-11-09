@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+
+
+  <title>瀑布流布局</title>
+  <style type="text/css">
+
+
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  #columns {
+    column-width: 320px;
+    column-gap: 15px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+  }
+
+  div#columns figure {
+    background: #fefefe;
+    border: 2px solid #fcfcfc;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    transition: opacity .4s ease-in-out;
+    column-break-inside: avoid;
+    display: inline-block;
+  }
+  div#columns figure img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+  }
+
+</style>
+</head>
+
+<body>
+  <div id="columns">
+    <figure>
+      <img src="../images/img_parallax1.jpg" alt>
+      <figcaption>1Cinderella wearing European fashion of the mid-1860’s</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/img_parallax3.jpg" alt>
+      <figcaption>2Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure><figure>
+      <img src="../images/img_parallax2.jpg" alt>
+      <figcaption>3Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure><figure>
+      <img src="../images/logo.png" alt>
+      <figcaption>4Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure><figure>
+      <img src="../images/img_parallax3.jpg" alt>
+      <figcaption>5Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure><figure>
+      <img src="../images/img_parallax1.jpg" alt>
+      <figcaption>6Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure><figure>
+      <img src="../images/img_parallax2.jpg" alt>
+      <figcaption>7Rapunzel, clothed in 1820’s period fashion</figcaption>
+    </figure>
+  </div>
+</body>
+
+
+<script type="text/javascript">
+
+  "use strict";
+
+
+
+</script>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+
+
+  <title>pie chart</title>
+  <style type="text/css">
+
+
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  canvas {
+    border: 1px solid blue;
+    /*width: 100%;*/
+  }
+
+
+
+</style>
+</head>
+
+<body >
+  <canvas width="500" height="400"></canvas>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+
+
+   var data = [
+  {
+    value: 6,
+    label: '微信门店'
+  },
+  {
+    value: 10,
+    label: '北京分店'
+  },
+  {
+    value: 14,
+    label: '中山南路店'
+  },
+  {
+    value: 18,
+    label: '南京路店'
+  },
+];
+
+function initChart(dom, data, option) {
+  var canvas = document.querySelector(dom);
+  var ctx = canvas.getContext('2d')
+
+  var colors = ['lightblue','lightgreen','pink','silver','AliceBlue','Aqua','BlanchedAlmond','CornflowerBlue','Cyan', 'DarkSalmon', 'Fuchsia', 'Orange', 'YellowGreen', 'Turquoise', 'Violet']
+
+  var pieX = 200;
+  var pieY = 200;
+  var pieSize = 150;
+
+  var sum = data.reduce(function(sum, choice) {
+      return sum + choice.value;
+    }, 0);
+
+  var cumulative = 0
+
+  data.forEach(function(segment, i) {
+    var label = segment.label;
+    var value = segment.value;
+
+
+    var startSegment = cumulative/sum * 2 * Math.PI;
+    var endSegment = (cumulative + segment.value)/sum * 2 * Math.PI;
+
+    var width = 10, height = 10;
+    var posX = pieSize * 2 + 40, posY = 30;
+    var textX = posX + width + 5, textY = posY + 10;
+
+    // drawing segments
+    var selectedColor = colors[i % colors.length];
+    ctx.fillStyle = selectedColor;
+    ctx.beginPath();
+    ctx.moveTo(pieX, pieY);
+    ctx.arc(pieX, pieY, pieSize, startSegment, endSegment, false);
+    ctx.lineTo(pieX, pieY);
+    ctx.closePath();
+    ctx.fill();
+
+    // writing labels
+    var diffArc = endSegment - startSegment
+    var labelX = pieX + Math.sin(startSegment + Math.PI/2 + diffArc/2) * pieSize * 0.6;
+    var labelY = pieY - Math.cos(startSegment + Math.PI/2 + diffArc/2) * pieSize * 0.6;
+
+    ctx.textAlign = 'center';
+    ctx.font = '14px Georgia';
+
+    ctx.fillStyle = 'white';
+    ctx.fillText(segment.label, labelX, labelY);
+
+
+    //绘制比例图及文字
+    ctx.fillStyle = selectedColor;
+    ctx.fillRect(posX, posY + 20 * i, width, height);
+    ctx.moveTo(posX, posY + 20 * i);
+    ctx.font = 'bold 12px 微软雅黑';    //斜体 30像素 微软雅黑字体
+    ctx.textAlign = 'left';
+    ctx.fillStyle = selectedColor; //"#000000";
+    var percent = segment.label + "：" + (100 * segment.value / sum).toFixed(0) + "%";
+    ctx.fillText(percent, textX, textY + 20 * i);
+
+    cumulative += segment.value;
+
+  });
+}
+
+initChart('canvas', data, {
+
+});
+
+
+
+ </script>
+</body>
+
+</html>
+
+
+

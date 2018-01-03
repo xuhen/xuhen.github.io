@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+
+
+  <title>交叉渐变</title>
+  <style type="text/css">
+
+
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    font-size: calc(0.5vw + 1vh + 0.5vmin);
+  }
+  body {
+    font: 100 50%/1.5 'Roboto', sans-serif;
+  }
+  .intro {
+    position: relative;
+    margin: 2em;
+    padding: 0.2em 0.6em;
+    cursor: pointer;
+    color: #fff;
+    font-size: 2em;
+    max-width: 26em;
+  }
+  .intro h1 {
+    margin-bottom: 0.5em;
+    line-height: 1;
+    font-weight: 100;
+  }
+  #CrossFade {
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  #CrossFade img {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
+    background: #000;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    opacity: 0;
+    -webkit-transform: scale(1.4) rotate(12deg);
+    transform: scale(1.4) rotate(12deg);
+    -webkit-animation: CrossFade 24s infinite;
+    animation: CrossFade 24s infinite;
+  }
+  #CrossFade img:nth-child(3) {
+    -webkit-animation-delay: 6s;
+    animation-delay: 6s;
+  }
+  #CrossFade img:nth-child(2) {
+    -webkit-animation-delay: 12s;
+    animation-delay: 12s;
+  }
+  #CrossFade img:nth-child(1) {
+    -webkit-animation-delay: 18s;
+    animation-delay: 18s;
+  }
+
+  @-webkit-keyframes CrossFade {
+    25% {
+      opacity: 1;
+      -webkit-transform: scale(1) rotate(0);
+      transform: scale(1) rotate(0);
+    }
+    40% {
+      opacity: 0;
+    }
+  }
+  @keyframes CrossFade {
+    25% {
+      opacity: 1;
+      -webkit-transform: scale(1) rotate(0);
+      transform: scale(1) rotate(0);
+    }
+    40% {
+      opacity: 0;
+    }
+  }
+
+
+
+</style>
+</head>
+
+<body >
+
+
+
+  <div id="CrossFade">
+    <img src="https://unsplash.it/1600/900?image=1043" alt="img"/>
+    <img src="https://unsplash.it/1600/900?image=1039" alt="img"/>
+    <img src="https://unsplash.it/1600/900?image=1018" alt="img"/>
+    <img src="https://unsplash.it/1600/900?image=929" alt="img"/>
+    <div class="intro">
+      <h1>Lorem ipsum dolor sit amet</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis impedit facilis nesciunt quam vitae voluptatibus ullam vero.</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+
+
+
+
+  </script>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+
+  <title>vanilla javascript create dom</title>
+  <style type="text/css">
+
+
+</style>
+</head>
+
+<body >
+  <input type="text" class="generate-input">
+  <button type="button" class="generate">创建新节点</button>
+  <ul id="links">
+    <li class="dynamic-link">List item 1</li>
+    <li class="dynamic-link">List item 2</li>
+    <li class="dynamic-link">List item 3</li>
+    <li class="dynamic-link">List item 4</li>
+  </ul>
+
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script> -->
+  <script type="text/javascript">
+    (function(){
+
+      var $ = function (selector) {
+        return document.querySelector(selector);
+      };
+
+      function dynamicEvent() {
+        this.innerHTML = 'Dynamic event success.';
+        this.className += ' dynamic-success';
+      }
+
+      var links = $('#links').getElementsByTagName('li');
+
+      for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+
+        link.onclick = dynamicEvent;
+      }
+
+      $('.generate').onclick = function() {
+
+        var dynamicValue = $('.generate-input').value;
+
+        if(!dynamicValue) {
+
+          alert('Please enter something.');
+
+        } else {
+          var li = document.createElement('li');
+          li.className = 'dynamic-link';
+          li.innerHTML = dynamicValue;
+
+          $('#links').appendChild(li);
+          li.onclick = dynamicEvent;
+        }
+
+      }
+    })();
+  </script>
+
+</script>
+</body>
+
+</html>
+
+
+

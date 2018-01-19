@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+
+  <title>Drag And Drop Image Upload</title>
+  <style type="text/css">
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    font-family: sans-serif;
+    margin: 100px auto;
+    padding: 20px;
+  }
+  #drop-area.highlight {
+    border-color: purple;
+  }
+  p {
+    margin-top: 0;
+  }
+  .my-form {
+    margin-bottom: 10px;
+  }
+  #gallery {
+    margin-top: 10px;
+  }
+  #gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .button:hover {
+    background: #ddd;
+  }
+  #fileElem {
+    display: none;
+  }
+
+
+</style>
+</head>
+
+<body>
+
+  <div id="drop-area">
+    <form class="my-form">
+      <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+      <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+      <label class="button" for="fileElem">Select some files</label>
+    </form>
+    <progress id="progress-bar" max=100 value=0></progress>
+    <div id="gallery"></div>
+
+  </div>
+
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.0/vue.min.js"></script> -->
+  <script type="text/javascript">
+
+    let dropArea = document.getElementById('drop-area');
+    let uploadProgress = [];
+    let progressBar = document.getElementById('progress-bar')
+
+
+
+
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, preventDefaults, false)
+    })
+
+    ;['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, highlight, false)
+    })
+
+    ;['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, unhighlight, false)
+    })
+
+
+    dropArea.addEventListener('drop', handleDrop, false)
+
+    function preventDefaults (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+
+    function highlight(e) {
+      dropArea.classList.add('highlight')
+    }
+
+    function unhighlight(e) {
+      dropArea.classList.remove('highlight')
+    }
+
+    function handleDrop(e) {
+      let dt = e.dataTransfer
+      let files = dt.files
+
+      console.log(files);
+
+      handleFiles(files)
+    }
+
+    function handleFiles(files) {
+      files = [...files]
+      initializeProgress(files.length)
+      files.forEach(uploadFile)
+      files.forEach(previewFile)
+    }
+
+
+    function uploadFile(file, i) { // <- Add `i` parameter
+      var url = 'https://api.cloudinary.com/v1_1/joezim007/image/upload'
+      var xhr = new XMLHttpRequest()
+      var formData = new FormData()
+      xhr.open('POST', url, true)
+
+      // Add following event listener
+      xhr.upload.addEventListener("progress", function(e) {
+        updateProgress(i, (e.loaded * 100.0 / e.total) || 100)
+      })
+
+      xhr.addEventListener('readystatechange', function(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          // Done. Inform the user
+        }
+        else if (xhr.readyState == 4 && xhr.status != 200) {
+          // Error. Inform the user
+        }
+      })
+
+      formData.append('upload_preset', 'ujpu6gyk')
+      formData.append('file', file)
+      xhr.send(formData)
+    }
+
+    function previewFile(file) {
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = function() {
+        let img = document.createElement('img')
+        img.src = reader.result
+        document.getElementById('gallery').appendChild(img)
+      }
+    }
+
+    function initializeProgress(numFiles) {
+      progressBar.value = 0
+      uploadProgress = []
+
+      for(let i = numFiles; i > 0; i--) {
+        uploadProgress.push(0)
+      }
+    }
+
+    function updateProgress(fileNumber, percent) {
+      uploadProgress[fileNumber] = percent
+      let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
+      progressBar.value = total
+    }
+
+
+
+</script>
+
+</script>
+</body>
+
+</html>
+
+
+

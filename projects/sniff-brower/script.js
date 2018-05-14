@@ -143,27 +143,22 @@ function getUserAgentInfoToString() {
     var shell = getUserAgentInfoFoo();
     if (shell.isIE()) {
         return "IE:" + shell.ieVersion();
-    }
-    if (shell.isEdge()) {
+    } else if (shell.isEdge()) {
         return 'Edge'
-    }
-    if (shell.isChrome()) {
+    } else if (shell.isChrome()) {
         return 'chrome:' + shell.chromeVersion();
-    }
-    if (shell.is360se()) {
+    } else if (shell.is360se()) {
         return '360se'
-    }
-    if (shell.is360ee()) {
+    } else if (shell.is360ee()) {
         return '360ee'
-    }
-    if (shell.isLiebao()) {
+    } else if (shell.isLiebao()) {
         return 'liebao'
-    }
-    if (shell.isSogou()) {
+    } else if (shell.isSogou()) {
         return 'sogou'
-    }
-    if (shell.isQQ()) {
+    } else if (shell.isQQ()) {
         return 'qq'
+    } else {
+        return 'unknow'
     }
     return ''
 }

@@ -166,29 +166,4 @@ var r = getUserAgentInfoToString();
 document.getElementById("show-txt").innerHTML = r;
 
 console.log(getUserAgentInfoToString())
-//    /**
-//     * 测试 MIME
-//     * @param where
-//     * @param value
-//     * @param [name]
-//     * @param [nameReg]
-//     * @returns {boolean}
-//     * @private
-//     */
-//    function _mime(where, value, name, nameReg) {
-//        var mimeTypes = navigator.mimeTypes;
-//        var i;
-//
-//        for (i in mimeTypes) {
-//            if (mimeTypes[i][where] == value) {
-//                if (name !== undefined && nameReg.test(mimeTypes[i][name])) {
-//                    return true;
-//                }
-//                else if (name === undefined) {
-//                    return true;
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
+

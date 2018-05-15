@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" Content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1, user-scalable=no">
+	<title>识别电脑浏览器和手机浏览器</title>
+</head>
+
+<div id="show-txt"></div>
+<script type="text/javascript">
+	var system ={};
+	var p = navigator.platform;
+	system.win = p.indexOf("Win") == 0;
+	system.mac = p.indexOf("Mac") == 0;
+	system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+	if(system.win||system.mac||system.xll){
+		console.log("电脑浏览器");
+		document.getElementById("show-txt").innerHTML = "电脑浏览器";
+	}else{
+		console.log("手机浏览器");
+		document.getElementById("show-txt").innerHTML = "手机浏览器";
+	}
+</script>
+<body>
+
+
+</body>
+</html>

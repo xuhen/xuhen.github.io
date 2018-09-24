@@ -1,0 +1,544 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="main-page">
+					<h2>转正答辩</h2>
+					<ul>
+						<li>姓名：胥恒</li>
+						<li>直接TL：徐潇潇</li>
+						<li>时间：2018年9月28日</li>
+					</ul>
+				</section>
+				<section>
+					<h3>自我介绍</h3>
+					<ul>
+						<li>平台事业部（创新框架）</li>
+						<li>前端开发工程师</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Yis框架</h3>
+					<ul>
+						<li>开发switch, range组件</li>
+						<li>修复Page组件scroll问题</li>
+						<li>测试和完善yis-demo项目，并更新文档</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Range组件</h2>
+						<h5>jsCore渲染刻度函数</h5>
+						<pre><code class="hljs" data-trim contenteditable>
+							_renderScale() {
+						        let {min, max, step, value, isSingle} = props;
+						        let intervalCount = (max - min) / step;
+						        let scales = [];
+						        let percent = 100 / intervalCount;
+						        for (let i = 0; i <= intervalCount; i++) {
+						            let scale = i * step + min;
+						            let item = {
+						                scale,
+						                left: percent * i,
+						                active: false
+						            };
+						            if (isSingle) {
+						                item.active = scale === value;
+						            } else {
+						                item.active = (scale >= value[0] && scale <= value[1]);
+						            }
+						            scales.push(item);
+						        }
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Range组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							componentDidMount({vnode}) {
+
+						        vnode.dom.addEventListener('touchstart', (e) => {
+						            e.preventDefault();
+						        });
+
+						        this.thumbNodes
+						        this.scaleNodes
+						        trackContainer;
+
+						        this.trackRectInfo = trackContainer.getBoundingClientRect();
+						        this.rightBoundary = this.trackRectInfo.width - this.handlerWith;
+						        this.intervalCount = ((this.max - this.min) / this.step);
+						        this.trackStep = (this.rightBoundary - this.leftBoundary) / this.intervalCount;
+						        this.realStep = (this.max - this.min) / this.intervalCount;
+						        for (let i = 0; i <= this.intervalCount; i++) {
+						            this.trackScales.push(i*this.trackStep);
+						            this.realScales.push(this.min + i*this.realStep);
+						        }
+
+						        this._reposition('mount');
+
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Range组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchMove(e: TouchsyncEvent) {
+
+					            let index = this.handlerIdx;
+
+					            this.endMoveX = e.changedTouches[0].pageX;
+					            let distance = this.endMoveX - this.startMoveX;
+					            let currentX = this.positionX[index] + distance;
+
+					            if (this.isSingle) {
+					                // 一个滑块的处理逻辑
+					                if (currentX <= this.leftBoundary) {
+					                    this._updatePosition(target, this.leftBoundary);
+					                } else if (currentX >= this.rightBoundary) {
+					                    this._updatePosition(target, this.rightBoundary);
+					                } else {
+					                    this._updatePosition(target, currentX);
+					                }
+					            } else {
+					                // 两个滑块的处理逻辑
+					                if (index === 0) {
+					                    if (currentX <= this.leftBoundary) {
+					                        return;
+					                    }
+					                    let rightPositionX = this.positionX[1];
+					                    let trackStep = this.trackStep;
+					                    if (rightPositionX - currentX >= trackStep / 2) {
+					                        this._updatePosition(target, currentX);
+
+					                    } else {
+					                        this.endPositionX = this.positionX[0];
+					                    }
+					                } else {
+					                    // ...
+					                }
+					            }
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Range组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchEnd(e: TouchsyncEvent) {
+						        if (componentType === 'YIS_Slider_Thumb' && this.moved) {
+						            let index = this.handlerIdx;
+
+						            let postionInfo = this._findEndPosition(this.endPositionX);
+						            let idx = postionInfo.index;
+						            let postion = postionInfo.positionX;
+
+						            this.returnArr[index] = this.realScales[idx];
+						            this.returnIdx[index] = idx;
+
+						            this.positionX[index] = postion;
+						            this._updatePosition(target, postion);
+
+						            if (this.showScale) {
+						                this._resetScaleStyle();
+
+						                if (this.isSingle) {
+						                    this.scaleNodes[idx].classList.add('divide-on');
+						                } else {
+						                    [].slice.call(this.scaleNodes).forEach((node, idx) => {
+						                        if (idx >= this.returnIdx[0] && idx <= this.returnIdx[1]) {
+						                            node.classList.add('divide-on');
+						                        }
+						                    });
+						                }
+						            }
+
+						            this.fireEvent({
+						                eventName: 'onChange',
+						                postionX: this.isSingle ? this.returnArr[0] : this.returnArr
+						            });
+						        }
+
+						    }
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Switch组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchStart(e: TouchsyncEvent) {
+							    e.preventDefault();
+							    e.stopPropagation();
+
+							    this.startX = e.changedTouches[0].pageX;
+							    const target = e.target;
+							    const checked = target.checked;
+							    if (checked) {
+							        target.classList.add('slice-backward');
+							    } else {
+							        target.classList.add('slice-forward');
+							    }
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h2>Switch组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchMove(e: TouchsyncEvent) {
+						        // ...
+
+						        this.endX = e.changedTouches[0].pageX;
+						        this.moved = true;
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Switch组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchEnd(e: TouchsyncEvent) {
+								// ...
+
+						        classList.remove('slice-backward');
+						        classList.remove('slice-forward');
+
+						        if (componentType === 'YIS_Input') {
+						            let distance = this.endX - this.startX;
+						            if (this.moved && Math.abs(distance) > this.swipeOffset) {
+						                this.fireEvent({
+						                    eventName: 'onChange'
+						                });
+						            }
+						        }
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Switch组件</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							onTouchTap(e: TouchsyncEvent) {
+						        //...
+
+						        this.fireEvent({
+						            eventName: 'onChange'
+						        });
+						    }
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Page组件scroll</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							handleScroll = (e: Event) => {
+						        if (!(e.timeStamp - this._lastScrollTime < 20)) {
+						        	this._lastScrollTime = e.timeStamp;
+						        	// ..
+						    	}
+
+						        // 修复 currentTarget 不能传到setTimeout
+						        this._debounce(e, e.currentTarget);
+
+						    }
+
+						    _debounce = debounce((e, currentTarget) => {
+
+						        let newE = Object.assign({}, {
+						            currentTarget: currentTarget,
+						            target: e.target,
+						            timeStamp: e.timeStamp,
+						            type: e.type
+						        });
+
+						        this.onScroll && this.onScroll(newE);
+						    }, 100, false)
+						</code></pre>
+					</section>
+					<section>
+						<h2>debounce 函数</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+							function debounce(func: Function, wait: number = 20, immediate: boolean = false) {
+								var timeout;
+								return function() {
+							        var context = this, args = arguments;
+									var later = function() {
+										timeout = null;
+										if (!immediate) func.apply(context, args);
+									};
+									var callNow = immediate && !timeout;
+									timeout && window.clearTimeout(timeout);
+									timeout = window.setTimeout(later, wait);
+									if (callNow) func.apply(context, args);
+								};
+							};
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>yis杂项</h2>
+					<ul>
+						<li>丰富示例：Sticky通讯录、弹框picker</li>
+						<li>修改demo例子样式</li>
+						<li>修复flow提示的错误</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Hy项目</h3>
+					<ul>
+						<li>给Demo项目加上redux状态管理</li>
+						<li>发现并定位qreat 2.2.0,componentWillReceiveProps的bug</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h3>redux状态管理</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							export default function configureStore(initialState = {}) {
+							    return createStore(
+							        rootReducer,
+							        initialState,
+							        // ...
+							    );
+							}
+
+							// rootReducer
+							export default combineReducers({
+							    listItems,
+							    itemsHasErrored,
+							    itemsIsLoading,
+							    itemsStartPage
+							    // ...
+							});
+						</code></pre>
+					</section>
+					<section>
+						<h3>Items reducer</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							export function listItems(state = [], action) {
+							    switch (action.type) {
+							        case ITEMS_FETCH_DATA_SUCCESS:
+							            return state.concat(action.listItems);
+							        case ITEMS_FETCH_DATA_REFRESH_SUCCESS:
+							            return action.listItems;
+
+							        default:
+							            return state;
+							    }
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>Items Actions</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							export function itemsFetchData(url, type) {
+							    return (dispatch) => {
+							        dispatch({
+							            type: ITEMS_IS_LOADING,
+							            isLoading: true
+							        });
+
+
+							        requests.get(url)
+							            .then(json => {
+
+							                dispatch({
+							                    type: ITEMS_IS_LOADING,
+							                    isLoading: false
+							                });
+
+							                dispatch({
+							                    type: type,
+							                    listItems: json
+							                })
+
+
+							            })
+							            .catch(() => dispatch({
+							                type: ITEMS_HAS_ERRORED,
+							                hasErrored: true
+							            }));
+							    };
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>Items page maps</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							const mapStateToProps = (state) => {
+							    return {
+							        listItems: state.listItems,
+							        // ...
+
+							    }
+							}
+
+							const mapDispatchToProps = (dispatch) => {
+							    return {
+							        fetchData: (url, type) => dispatch(itemsFetchData(url, type)),
+							        // ...
+
+							    };
+							};
+
+							export default connect(mapStateToProps, mapDispatchToProps)(CrewList)
+
+						</code></pre>
+					</section>
+					<section>
+						<h3>Items page query</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							query(page, pageSize, type) {
+
+						        var start = page * pageSize;
+						        var end = start + pageSize;
+						        var url = "/crews?_start=" + start + "&_end=" + end;
+						        this.props.fetchData(url, type);
+						        this.props.changePage(page + 1);
+						    }
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>componentWillReceiveProps的事故现场</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							componentWillReceiveProps(nextProps) {
+						        //...
+
+						        if (this.state.src !== nextProps.src) {
+						            this.setState({ src: this.props.defaultImage });
+						        }
+						    }
+
+
+						    load() {
+					            const { src } = this.props,
+					            tmpImg = new Image();
+
+					            tmpImg.onload = () => {
+					                this.setState({ src, loaded: true });
+					            };
+					            tmpImg.src = src;
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h3>qreat 2.2.0 复现bug</h3>
+						<pre><code class="hljs" data-trim contenteditable>
+							class Demo extends React.Component {
+					            static childContextTypes = {
+					                testItems: PropTypes.array
+					            }
+					            constructor(props) {
+					                super(props);
+					                this.state = {
+					                    testItems: []
+					                };
+					            }
+					            getChildContext() {
+					                return { testItems: this.state.testItems };
+					            }
+					            render() {
+					                return (
+					                    <div>
+					                        <Hello />
+					                    </div>
+					                );
+					            }
+					        }
+
+					        class Hello extends React.Component {
+					            static contextTypes = {
+					                testItems: PropTypes.array
+					            }
+					            constructor(props) {
+					                super(props);
+					                this.state = {
+					                    hello: "world"
+					                };
+
+					            }
+					            componentWillReceiveProps(nextProps) {
+					                console.log("componentWillReceiveProps");
+					                console.log(this.context);
+					            }
+					            changeHello() {
+					                this.setState({
+					                    hello: "woooo"
+					                });
+					            }
+					            render() {
+					                return (
+					                    <div onTouchStart={this.changeHello.bind(this)}>
+					                        {this.state.hello}
+					                    </div>
+					                );
+					            }
+					        }
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h3>收获、感悟和展望</h3>
+					<ul>
+						<li>有更多的技术挑战，对自己的技术能力有所提升</li>
+						<li>同事们都很帮忙，对新员工不懂的事都耐心讲解</li>
+						<li>公司技术氛围，交流氛围都很好</li>
+						<li>在前端架构方面有更多的提升</li>
+					</ul>
+				</section>
+				<section>
+					<h3>The End</h3>
+					<ul>
+						<li>Thanks for your time.</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+	</body>
+</html>

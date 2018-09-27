@@ -29,7 +29,7 @@
 					<h2>转正答辩</h2>
 					<ul>
 						<li>姓名：胥恒</li>
-						<li>直接TL：徐潇潇</li>
+						<!-- <li>直接TL：徐潇潇</li> -->
 						<li>时间：2018年9月28日</li>
 					</ul>
 				</section>
@@ -59,7 +59,7 @@
 						<h2>Range组件</h2>
 						<h5>jsCore渲染刻度函数</h5>
 						<pre><code class="hljs" data-trim contenteditable>
-							_renderScale() {
+							_generateScale = (props: Object) => {
 						        let {min, max, step, value, isSingle} = props;
 						        let intervalCount = (max - min) / step;
 						        let scales = [];
@@ -78,34 +78,94 @@
 						            }
 						            scales.push(item);
 						        }
+						        if (!Number.isInteger(intervalCount)) {
+						            console.warn(`(${max} - ${min}) / ${step} 不能被整除`);
+						        }
+						        return scales;
 						    }
 						</code></pre>
 					</section>
 					<section>
 						<h2>Range组件</h2>
+						<h5>webview 生成页面对应的track刻度</h5>
 						<pre><code class="hljs" data-trim contenteditable>
-							componentDidMount({vnode}) {
-
-						        vnode.dom.addEventListener('touchstart', (e) => {
-						            e.preventDefault();
-						        });
-
-						        this.thumbNodes
-						        this.scaleNodes
-						        trackContainer;
-
-						        this.trackRectInfo = trackContainer.getBoundingClientRect();
-						        this.rightBoundary = this.trackRectInfo.width - this.handlerWith;
+							_generateTrackStep() {
+						        let trackRectInfo = this.trackContainer.getBoundingClientRect();
+						        this.rightBoundary = trackRectInfo.width - this.handlerWith;
 						        this.intervalCount = ((this.max - this.min) / this.step);
 						        this.trackStep = (this.rightBoundary - this.leftBoundary) / this.intervalCount;
-						        this.realStep = (this.max - this.min) / this.intervalCount;
 						        for (let i = 0; i <= this.intervalCount; i++) {
 						            this.trackScales.push(i*this.trackStep);
-						            this.realScales.push(this.min + i*this.realStep);
+						            this.realScales.push(this.min + i*this.step);
 						        }
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Range组件</h2>
+						<h5>webview _findEndPosition 函数</h5>
+						<pre><code class="hljs" data-trim contenteditable>
+							_findEndPosition(positionX: number) {
+						        const trackScales = this.trackScales;
+						        const len = trackScales.length;
+						        let index = 0;
+						        let prev, next;
+						        for(let i = 0; i < len; i++) {
+						            if (trackScales[i] >= positionX) {
+						                index = i;
+						                break;
+						            }
+						        }
+						        next = trackScales[index];
+						        prev = trackScales[index - 1];
 
-						        this._reposition('mount');
+						        // 滑动到第一个值
+						        if (prev === undefined) {
+						            return {
+						                positionX: 0,
+						                index: 0
+						            };
+						        // 下一个值为目标值
+						        } else if (Math.abs(positionX - prev) >= Math.abs(positionX - next)) {
+						            return {
+						                positionX: next,
+						                index: index
+						            };
+						        // 上一个为目标值
+						        } else {
+						            return {
+						                positionX: prev,
+						                index: index - 1
+						            };
+						        }
+						    }
+						</code></pre>
+					</section>
+					<section>
+						<h2>Range组件</h2>
+						<h5>webview _reposition 函数</h5>
+						<pre><code class="hljs" data-trim contenteditable>
+							_reposition(state: string) {
+						        this.values = this.value.split(',').map(function(item) {
+						            return parseInt(item, 10);
+						        });
 
+						        let thumbNodes = [].slice.call(this.thumbNodes);
+						        thumbNodes.forEach(function(node, i) {
+						            // 将传入的 value 值转为具体的 px 值
+						            let positionX = (this.rightBoundary - this.leftBoundary) * (this.values[i] - this.min) / (this.max - this.min);
+						            let idx = this._findEndPosition(positionX).index;
+						            this.returnArr[i] = this.realScales[idx];
+						            this.returnIdx[i] = idx;
+						            this.positionX[i] = positionX;
+						            if (state === 'mount') {
+						                node.classList.remove('transition');
+						                node.setAttribute('index', i);
+						            } else {
+						                !node.classList.contains('transition') && node.classList.add('transition');
+						            }
+						            this._updatePosition(node, positionX);
+						        }.bind(this));
 						    }
 						</code></pre>
 					</section>
@@ -124,10 +184,13 @@
 					                // 一个滑块的处理逻辑
 					                if (currentX <= this.leftBoundary) {
 					                    this._updatePosition(target, this.leftBoundary);
+					                    this.endPositionX = this.leftBoundary;
 					                } else if (currentX >= this.rightBoundary) {
 					                    this._updatePosition(target, this.rightBoundary);
+					                    this.endPositionX = this.rightBoundary;
 					                } else {
 					                    this._updatePosition(target, currentX);
+					                    this.endPositionX = currentX;
 					                }
 					            } else {
 					                // 两个滑块的处理逻辑
@@ -295,7 +358,7 @@
 							        var context = this, args = arguments;
 									var later = function() {
 										timeout = null;
-										if (!immediate) func.apply(context, args);
+										func.apply(context, args);
 									};
 									var callNow = immediate && !timeout;
 									timeout && window.clearTimeout(timeout);

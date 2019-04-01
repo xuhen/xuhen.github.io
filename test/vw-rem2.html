@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>vw-rem实践</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            /* iPhone6的375px尺寸作为16px基准，600px正好18px大小 */
+            /* 16px -> 18px */
+            font-size: calc(100% + 2 * (100vw - 375px) / 225);
+        }
+
+        @media screen and (min-width: 600px) {
+            html {
+                /* 600px-1000px每100像素宽字体增加1px(18px-22px) */
+                /* 18px -> 22px */
+                font-size: calc(112.5% + 4 * (100vw - 600px) / 400);
+            }
+        }
+
+        @media screen and (min-width: 1000px) {
+            html {
+                /* 1000px往后是每100像素0.5px增加 */
+                /* 22px -> ... */
+                font-size: calc(137.5% + 5 * (100vw - 1000px) / 1000);
+            }
+        }
+
+        .img {
+            width: 12.5rem;
+        }
+
+        body {
+            font-size: .75rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img class="img" src="http://xuheng.inject.top/images/img_parallax3.jpg" />
+
+    <div>
+        响应式布局的实现依靠媒体查询（ Media Queries ）来实现，选取主流设备宽度尺寸作为断点针对性写额外的样式进行适配，但这样做会比较麻烦，只能在选取的几个主流设备尺寸下呈现完美适配。
+        即使是通过 rem 单位来实现适配，也是需要内嵌一段脚本去动态计算根元素大小。
+
+        近年来，随着移动端对视口单位的支持越来越成熟、广泛，使得我们可以尝试一种新的办法去真正地适配所有设备尺寸。
+    </div>
+
+
+    <script>
+
+        var fontSize = window.getComputedStyle(document.documentElement, null)['fontSize']
+
+        console.log('fontSize', fontSize);
+    </script>
+
+
+</body>
+
+</html>

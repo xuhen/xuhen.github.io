@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>ripple effect</title>
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+
+		body {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: #aa5b56;
+			font-size: 62.5%;
+		}
+
+		/* ~~~~~~~~~~~~~~
+			Button
+		~~~~~~~~~~~~~~ */
+		.btn {
+			height: 42px;
+			line-height: 42px;
+			display: block;
+			margin: 2em;
+			padding: 0 2em;
+			border-radius: 2px;
+			box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+			font-size: 1.4em;
+			text-transform: uppercase;
+			text-decoration: none;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		[data-animation] {
+			position: relative;
+			overflow: hidden;
+		}
+
+		/* ~~~~~~~~~~~~~~
+			Colors
+		~~~~~~~~~~~~~~ */
+		.btn-blue {
+			background: #00bcd4;
+		}
+
+		.btn-green {
+			background: #4caf50;
+		}
+
+		/* ~~~~~~~~~~~~~~
+		Ripple Effect
+		~~~~~~~~~~~~~~ */
+		.ripple {
+			width: 2px;
+			height: 2px;
+			position: absolute;
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.5);
+			-webkit-animation: rippleEffect 0.5s ease-in-out;
+			animation: rippleEffect 0.5s ease-in-out;
+		}
+
+		@-webkit-keyframes rippleEffect {
+			0% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+			}
+
+			100% {
+				opacity: 0;
+				-webkit-transform: scale(var(--scale));
+				transform: scale(var(--scale));
+			}
+		}
+
+		@keyframes rippleEffect {
+			0% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+			}
+
+			100% {
+				opacity: 0;
+				-webkit-transform: scale(var(--scale));
+				transform: scale(var(--scale));
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="btn btn-green" data-animation="ripple">Click me</div>
+	<div class="btn btn-blue" data-animation="ripple">Click me</div>
+	<script type="text/javascript">
+
+		var btn = document.querySelectorAll('[data-animation="ripple"]');
+
+		for (var i = 0; i < btn.length; i++) {
+			btn[i].onmousedown = function (e) {
+				console.log('onmousedown', e)
+
+				var x = e.pageX - this.offsetLeft,
+					y = e.pageY - this.offsetTop,
+					w = this.offsetWidth;
+
+				var ripple = document.createElement('span');
+
+				ripple.className = 'ripple';
+				ripple.style.left = x + 'px';
+				ripple.style.top = y + 'px';
+				ripple.style.setProperty('--scale', w);
+
+				this.appendChild(ripple);
+
+				setTimeout(function () {
+					ripple.parentNode.removeChild(ripple);
+				}, 500);
+			}
+
+			btn[i].ontouchstart = function (e) {
+				e.stopPropagation();
+				e.preventDefault();
+				console.log('ontouchstart', e);
+
+				var target = e.touches[0];
+				var x = target.pageX - this.offsetLeft,
+					y = target.pageY - this.offsetTop,
+					w = this.offsetWidth;
+
+				var ripple = document.createElement('span');
+
+				ripple.className = 'ripple';
+				ripple.style.left = x + 'px';
+				ripple.style.top = y + 'px';
+				ripple.style.setProperty('--scale', w);
+
+				this.appendChild(ripple);
+
+				setTimeout(function () {
+					ripple.parentNode.removeChild(ripple);
+				}, 500);
+			}
+		}
+
+
+	</script>
+</body>
+
+</html>

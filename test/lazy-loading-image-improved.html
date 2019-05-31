@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Accessing Elements in the DOM</title>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        img {
+            background: #F1F1FA;
+            width: 400px;
+            height: 300px;
+            display: block;
+            margin: 10px auto;
+            border: 0;
+        }
+
+        /* img:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F1F1FA;
+            content: "";
+            display: block;
+            border: 1px solid #cccccc;
+        } */
+    </style>
+
+</head>
+
+<body>
+
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image1.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image1.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image2.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image2.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image1.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image3.jpg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image5.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image5.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image6.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image6.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image7.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image7.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image8.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image8.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image9.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image9.jpeg?tr=w-400,h-300" />
+    <img class="lazy" data-placeholder-src="https://ik.imagekit.io/demo/img/image10.jpeg?tr=w-400,h-300,bl-30,q-50"
+        data-src="https://ik.imagekit.io/demo/img/image10.jpeg?tr=w-400,h-300" />
+
+
+
+
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var lazyloadImages = document.querySelectorAll("img.lazy");
+            var lazyloadThrottleTimeout;
+
+            // 初始展示站位图片
+            lazyloadImages.forEach(function (img) {
+                var url = img.getAttribute("data-placeholder-src");
+                img.setAttribute("src", url);
+            })
+
+            function lazyload() {
+                if (lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }
+
+                lazyloadThrottleTimeout = setTimeout(function () {
+                    var scrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function (img) {
+                        // 在窗口里的图片
+                        if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                            var url = img.getAttribute("data-src");
+                            img.setAttribute("src", url);
+                            img.classList.remove("lazy");
+
+                            // 在窗口下面隐藏的图片
+                        } else {
+                            var url = img.getAttribute("data-placeholder-src");
+                            img.setAttribute("src", url);
+                            img.classList.add('lazy');
+                        }
+
+                        // 在窗口上面隐藏的图片
+                        if (img.getBoundingClientRect().bottom < 0) {
+                            var url = img.getAttribute("data-placeholder-src");
+                            img.setAttribute("src", url);
+                            img.classList.add('lazy');
+                        }
+                    });
+                    // if (lazyloadImages.length == 0) {
+                    //     document.removeEventListener("scroll", lazyload);
+                    //     window.removeEventListener("resize", lazyload);
+                    //     window.removeEventListener("orientationChange", lazyload);
+                    // }
+                }, 40);
+            }
+
+            document.addEventListener("scroll", lazyload);
+            window.addEventListener("resize", lazyload);
+            window.addEventListener("orientationChange", lazyload);
+
+            lazyload();
+        });
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

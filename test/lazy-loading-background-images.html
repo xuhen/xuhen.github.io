@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Accessing Elements in the DOM</title>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        #container {
+            font-size: 20px;
+            line-height: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bg-image.lazy {
+            background-image: none;
+            background-color: #F1F1FA;
+        }
+
+        .bg-image {
+            background-image: url("https://ik.imagekit.io/demo/img/image10.jpeg?tr=w-600,h-400");
+            max-width: 600px;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="container">
+        <h3>Lazy loading CSS background images</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ligula non lorem facilisis finibus.
+            Suspendisse turpis lacus, tempus sit amet dignissim sit amet, pretium non sem. Ut malesuada purus ac magna
+            placerat, tempus commodo turpis consectetur. Nunc vitae metus vehicula nunc congue varius. Suspendisse
+            egestas urna non finibus feugiat. Vestibulum maximus, nunc et tempus convallis, dui ante vestibulum est, in
+            lobortis purus sapien eget lacus. Suspendisse cursus enim non quam mollis imperdiet. Pellentesque convallis
+            eget nunc vitae fringilla. Fusce interdum, velit semper varius aliquet, eros sapien facilisis erat, iaculis
+            vulputate erat arcu vel neque. Suspendisse dignissim hendrerit lorem. Etiam metus ex, finibus vitae iaculis
+            vitae, iaculis non ex. Phasellus commodo id ante id consequat. Nunc consectetur viverra lacus non fringilla.
+            Pellentesque nec nisl vulputate, sagittis nisl id, venenatis nisi. Nunc malesuada tellus a elit suscipit
+            tempor.
+        </p>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+        <div class="bg-image lazy"></div>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+        <h3>Lazy loading CSS background images</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ligula non lorem facilisis finibus.
+            Suspendisse turpis lacus, tempus sit amet dignissim sit amet, pretium non sem. Ut malesuada purus ac magna
+            placerat, tempus commodo turpis consectetur. Nunc vitae metus vehicula nunc congue varius. Suspendisse
+            egestas urna non finibus feugiat. Vestibulum maximus, nunc et tempus convallis, dui ante vestibulum est, in
+            lobortis purus sapien eget lacus. Suspendisse cursus enim non quam mollis imperdiet. Pellentesque convallis
+            eget nunc vitae fringilla. Fusce interdum, velit semper varius aliquet, eros sapien facilisis erat, iaculis
+            vulputate erat arcu vel neque. Suspendisse dignissim hendrerit lorem. Etiam metus ex, finibus vitae iaculis
+            vitae, iaculis non ex. Phasellus commodo id ante id consequat. Nunc consectetur viverra lacus non fringilla.
+            Pellentesque nec nisl vulputate, sagittis nisl id, venenatis nisi. Nunc malesuada tellus a elit suscipit
+            tempor.
+        </p>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+        <div class="bg-image lazy"></div>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+        <h3>Lazy loading CSS background images</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ligula non lorem facilisis finibus.
+            Suspendisse turpis lacus, tempus sit amet dignissim sit amet, pretium non sem. Ut malesuada purus ac magna
+            placerat, tempus commodo turpis consectetur. Nunc vitae metus vehicula nunc congue varius. Suspendisse
+            egestas urna non finibus feugiat. Vestibulum maximus, nunc et tempus convallis, dui ante vestibulum est, in
+            lobortis purus sapien eget lacus. Suspendisse cursus enim non quam mollis imperdiet. Pellentesque convallis
+            eget nunc vitae fringilla. Fusce interdum, velit semper varius aliquet, eros sapien facilisis erat, iaculis
+            vulputate erat arcu vel neque. Suspendisse dignissim hendrerit lorem. Etiam metus ex, finibus vitae iaculis
+            vitae, iaculis non ex. Phasellus commodo id ante id consequat. Nunc consectetur viverra lacus non fringilla.
+            Pellentesque nec nisl vulputate, sagittis nisl id, venenatis nisi. Nunc malesuada tellus a elit suscipit
+            tempor.
+        </p>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+        <div class="bg-image lazy"></div>
+        <p>
+            Nam lacinia tortor quis volutpat lacinia. Aliquam in orci in nunc vehicula maximus. Phasellus elementum
+            nulla augue, at aliquam sem pulvinar dapibus. Vivamus molestie venenatis risus pulvinar interdum. Phasellus
+            blandit tortor eget nulla sagittis auctor. Cras sed leo in velit lobortis euismod. Suspendisse non ante
+            tellus.
+        </p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var lazyloadImages;
+
+
+            var lazyloadThrottleTimeout;
+            lazyloadImages = document.querySelectorAll(".lazy");
+
+            function lazyload() {
+                if (lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }
+
+                lazyloadThrottleTimeout = setTimeout(function () {
+                    var scrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function (img) {
+                        // 在窗口里的图片
+                        if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                            img.classList.remove('lazy');
+
+                            // 在窗口下面隐藏的图片
+                        } else {
+                            img.classList.add('lazy');
+                        }
+
+                        // 在窗口上面隐藏的图片
+                        if (img.getBoundingClientRect().bottom < 0) {
+                            img.classList.add('lazy');
+                        }
+
+
+                    });
+                    // if (lazyloadImages.length == 0) {
+                    //     document.removeEventListener("scroll", lazyload);
+                    //     window.removeEventListener("resize", lazyload);
+                    //     window.removeEventListener("orientationChange", lazyload);
+                    // }
+                }, 20);
+            }
+
+            document.addEventListener("scroll", lazyload);
+            window.addEventListener("resize", lazyload);
+            window.addEventListener("orientationChange", lazyload);
+
+            lazyload();
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

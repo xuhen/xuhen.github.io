@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Binary Search Test Suit</title>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-left: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+        }
+
+        div.results {
+            padding: 10px;
+            border: 1px solid black;
+            font-family: Courier;
+            font-size: 1em;
+            width: 800px;
+            display: block;
+        }
+
+        .summary {
+            font-size: 1.4em;
+            padding: 2px;
+        }
+
+        div.result {
+            padding: 5px;
+        }
+
+        div.results #pass {
+            color: green;
+        }
+
+        div.results #fail {
+            color: tomato;
+        }
+
+        span#details {
+            font-size: 0.7em;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>binary search w/tests</h1>
+    <div class="results"></div>
+
+
+    <script>
+        'use strict';
+
+        function binarySearch(arr, target, L = null, R = null, ct = 0) {
+            if (!arr || arr.length <= 1 || !target) {
+                return new Error("Too few arguments supplied.");
+            }
+            if (typeof arr[0] !== typeof target) {
+                return new Error("Type mismatch between array elements and target.");
+            }
+            if (!Array.isArray(arr)) {
+                return new Error("Can only search over an array.");
+            }
+            ct++;
+            if (ct === arr.length - 1) { //prevent infinite recursion for unsorted array
+                return false;
+            }
+            if (!L && !R) {
+                L = 0;
+                R = arr.length - 1;
+            }
+            let midPt = Math.floor((L + R) / 2);
+            if (L > R) {
+                return false;
+            }
+            if (arr[midPt] === target) {
+                return midPt;
+            } else if (arr[midPt] > target) { //re-adjust search range
+                R = midPt - 1;
+                return binarySearch(arr, target, L, R, ct);
+            } else if (arr[midPt] < target) {
+                L = midPt + 1;
+                return binarySearch(arr, target, L, R, ct);
+            }
+        }
+
+
+        function testRunner(tests) {
+            return tests.map(t => {
+                let res = binarySearch.apply(null, t.args);
+                if (res.name === "Error") { //map Error() s to 'false' return result
+                    res = false;
+                }
+                return {
+                    actual: res,
+                    passed: res === t.exp,
+                    exp: t.exp,
+                    desc: t.desc,
+                    args: t.args
+                };
+            });
+        }
+
+        function printResults(results) {
+            let passCt = results.filter(e => e.passed).length;
+            let failCt = results.filter(e => !e.passed).length;
+            let divR = document.querySelector("div.results");
+            let summary = document.createElement("div");
+            summary.classList.add("summary");
+            summary.innerHTML = `${passCt === 1 ? passCt + " test" : passCt + " tests"} passing, `;
+            summary.innerHTML += `${failCt === 1 ? failCt + " test" : failCt + " tests"} failing`;
+            divR.appendChild(summary);
+            for (var i = 0; i < results.length; i++) {
+                let R = results[i];
+                let d = document.createElement("div");
+                d.classList.add("result");
+                d.id = R.passed ? "pass" : "fail";
+                d.innerHTML = `${R.desc}<br /><span id="details">called binarySearch with ${JSON.stringify(R.args)}<br />`;
+                d.innerHTML += `actual: ${R.actual} | expected ${R.exp}</span>`;
+                divR.appendChild(d);
+            }
+        }
+
+        window.onload = function () {
+            const TESTS = [
+                { desc: "it returns false with empty array", args: [[], 1], exp: false },
+                { desc: "it throws an error if missing arguments", args: [], exp: false },
+                { desc: "it throws an error if missing arguments", args: [[]], exp: false },
+                {
+                    desc: "it returns false for target not in array",
+                    args: [[1, 2, 3, 4, 5, 6], 7],
+                    exp: false
+                },
+                {
+                    desc: "it returns false for type mismatch",
+                    args: [["aardvark", "cats", "dogs", "horses", "rhinos", "zebras"], 4],
+                    exp: false
+                },
+                {
+                    desc: "it returns false for type mismatch",
+                    args: [[4, 7, 1, 3, 7, 2, 6], "rhinos"],
+                    exp: false
+                },
+                {
+                    desc: "it does not go haywire for an unsorted array",
+                    args: [[4, 7, 1, 3, 7, 2, 6], 2],
+                    exp: false
+                },
+                {
+                    desc: "it returns correct index when target is at arr[0]",
+                    args: [[1, 2, 3, 4, 5, 6], 1],
+                    exp: 0
+                },
+                {
+                    desc: "it returns correct index when target is at arr[arr.length-1]",
+                    args: [[1, 2, 3, 4, 5, 6], 6],
+                    exp: 5
+                },
+                {
+                    desc:
+                        "(wrong expected value) it returns correct index when target is in array",
+                    args: [[1, 2, 3, 4, 5, 6], 6],
+                    exp: 2
+                },
+                {
+                    desc: "it works with words",
+                    args: [
+                        ["aardvark", "cats", "dogs", "horses", "rhinos", "zebras"],
+                        "rhinos"
+                    ],
+                    exp: 4
+                }
+            ];
+            printResults(testRunner(TESTS));
+        };
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

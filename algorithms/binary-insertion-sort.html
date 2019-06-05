@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>binary insertion sort</title>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-left: 10px;
+            font-family: Courier;
+        }
+
+        h1 {
+            font-size: 1.4em;
+            font-family: Helvetica, sans-serif;
+            font-weight: 100;
+        }
+
+        input {
+            width: 300px;
+            font-size: 0.8em;
+            font-family: Courier;
+        }
+
+        button {
+            font-size: 0.8em;
+            font-family: Courier;
+            width: 100px;
+            height: 40px;
+        }
+
+        div.results {
+            padding: 10px;
+            border: 1px solid black;
+            font-family: Courier;
+            font-size: 0.8em;
+            width: 300px;
+            display: block;
+        }
+
+        .summary {
+            font-size: 1.4em;
+            padding: 2px;
+        }
+
+        div.result {
+            padding: 5px;
+        }
+
+        div.results #pass {
+            color: green;
+        }
+
+        div.results #fail {
+            color: tomato;
+        }
+
+        span#details {
+            font-size: 0.7em;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>insertion sort (enter space-delimited list)</h1><br />
+    <input id="toSort" value="0 2 1 3 4 zebra airplane cow horse $ ! ?"></input>
+    <button id="sort">SORT!</button>
+    <div class="results">hi</div>
+
+
+    <script>
+        function binaryInsertionSort(arr) {
+            if (!arr) { return new Error('No array supplied to sort.'); }
+            else if (arr.length <= 1) { return new Error('Array length is not sortable.'); }
+            var j = 0;
+            for (var i = 1; i < arr.length; i++) {
+                let key = arr[i];
+                j = i - 1;
+                let idx = binarySearch(arr, key, 0, j)
+                while (j >= idx) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+                arr[j + 1] = key;
+            }
+            return arr;
+        }
+
+        function binarySearch(arr, target, L = null, R = null, ct = 0) {
+            if (!arr || arr.length <= 1 || !target) {
+                return new Error("Too few arguments supplied.");
+            }
+            if (typeof arr[0] !== typeof target) {
+                return new Error("Type mismatch between array elements and target.");
+            }
+            if (!Array.isArray(arr)) {
+                return new Error("Can only search over an array.");
+            }
+            ct++;
+            if (ct === arr.length - 1) { //prevent infinite recursion for unsorted array
+                return new Error("Infinite loop prevented.");
+            }
+            let midPt = Math.floor((L + R) / 2);
+            if (L >= R) { return (target > arr[L]) ? L + 1 : L; }
+            if (target === arr[midPt]) { return midPt + 1; }
+            if (arr[midPt] > target) {
+                R = midPt - 1
+                return binarySearch(arr, target, L, R, ct);
+            } else if (arr[midPt] < target) {
+                L = midPt + 1;
+                return binarySearch(arr, target, L, R, ct);
+            }
+        }
+
+        window.onload = function () {
+            sortIt();
+            let sortB = document.querySelector('button#sort');
+            sortB.addEventListener('click', sortIt);
+        }
+
+        function sortIt() {
+            let sInput = document.querySelector('input#toSort').value.split(" ");
+            let numbers = sInput.filter(e => Number.isInteger(Number(e))).map(e => Number(e));
+            let strings = sInput.filter(e => !Number.isInteger(Number(e)));
+            let sortedNumbers = binaryInsertionSort(numbers)
+            let sortedStrings = binaryInsertionSort(strings)
+            let display = sortedNumbers.concat(sortedStrings).join(" ");
+            document.querySelector('div.results').innerHTML = display;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Carousel</title>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        .scene {
+            width: 210px;
+            height: 140px;
+            position: relative;
+            perspective: 1000px;
+            margin: 200px auto;
+
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transform: translateZ(-288px) rotateY(-160deg);
+            transition: transform 1s;
+            background-color: yellow;
+        }
+
+        .carousel__cell {
+            position: absolute;
+            width: 190px;
+            height: 120px;
+            left: 10px;
+            top: 10px;
+            border: 1px solid black;
+        }
+
+        /* .carousel__cell:nth-child(1) {
+            transform: rotateY(0deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(2) {
+            transform: rotateY(40deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(3) {
+            transform: rotateY(80deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(4) {
+            transform: rotateY(120deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(5) {
+            transform: rotateY(160deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(6) {
+            transform: rotateY(200deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(7) {
+            transform: rotateY(240deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(8) {
+            transform: rotateY(280deg) translateZ(288px);
+        }
+
+        .carousel__cell:nth-child(9) {
+            transform: rotateY(320deg) translateZ(288px);
+        } */
+    </style>
+
+</head>
+
+<body>
+
+    <div class="scene">
+        <div class="carousel">
+            <div class="carousel__cell">1</div>
+            <div class="carousel__cell">2</div>
+            <div class="carousel__cell">3</div>
+            <div class="carousel__cell">4</div>
+            <div class="carousel__cell">5</div>
+            <div class="carousel__cell">6</div>
+            <div class="carousel__cell">7</div>
+            <div class="carousel__cell">8</div>
+            <div class="carousel__cell">9</div>
+        </div>
+    </div>
+
+    <div class="carousel-options">
+        <p>
+            <label>
+                Cells
+                <input class="cells-range" type="range" min="3" max="15" value="9" />
+            </label>
+        </p>
+        <p>
+            <button class="previous-button">Previous</button>
+            <button class="next-button">Next</button>
+        </p>
+        <p>
+            Orientation:
+            <label>
+                <input type="radio" name="orientation" value="horizontal" checked />
+                horizontal
+            </label>
+            <label>
+                <input type="radio" name="orientation" value="vertical" />
+                vertical
+            </label>
+        </p>
+    </div>
+
+    <script>
+
+        var carousel = document.querySelector('.carousel');
+        var cells = carousel.querySelectorAll('.carousel__cell');
+        var cellCount; // cellCount set from cells-range input value
+        var selectedIndex = 0;
+        var cellWidth = carousel.offsetWidth;
+        var cellHeight = carousel.offsetHeight;
+        var isHorizontal = true;
+        var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
+        var radius, theta;
+        // console.log( cellWidth, cellHeight );
+
+        function rotateCarousel() {
+            var angle = theta * selectedIndex * -1;
+            carousel.style.transform = 'translateZ(' + -radius + 'px) ' +
+                rotateFn + '(' + angle + 'deg)';
+        }
+
+        var prevButton = document.querySelector('.previous-button');
+        prevButton.addEventListener('click', function () {
+            selectedIndex--;
+            rotateCarousel();
+        });
+
+        var nextButton = document.querySelector('.next-button');
+        nextButton.addEventListener('click', function () {
+            selectedIndex++;
+            rotateCarousel();
+        });
+
+        var cellsRange = document.querySelector('.cells-range');
+        cellsRange.addEventListener('change', changeCarousel);
+        cellsRange.addEventListener('input', changeCarousel);
+
+
+
+        function changeCarousel() {
+            cellCount = cellsRange.value;
+            theta = 360 / cellCount;
+            var cellSize = isHorizontal ? cellWidth : cellHeight;
+            radius = Math.round((cellSize / 2) / Math.tan(Math.PI / cellCount));
+            for (var i = 0; i < cells.length; i++) {
+                var cell = cells[i];
+                if (i < cellCount) {
+                    // visible cell
+                    cell.style.opacity = 1;
+                    var cellAngle = theta * i;
+                    cell.style.transform = rotateFn + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
+                } else {
+                    // hidden cell
+                    cell.style.opacity = 0;
+                    cell.style.transform = 'none';
+                }
+            }
+
+            rotateCarousel();
+        }
+
+        var orientationRadios = document.querySelectorAll('input[name="orientation"]');
+        (function () {
+            for (var i = 0; i < orientationRadios.length; i++) {
+                var radio = orientationRadios[i];
+                radio.addEventListener('change', onOrientationChange);
+            }
+        })();
+
+        function onOrientationChange() {
+            var checkedRadio = document.querySelector('input[name="orientation"]:checked');
+            isHorizontal = checkedRadio.value == 'horizontal';
+            rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
+            changeCarousel();
+        }
+
+        // set initials
+        onOrientationChange();
+
+
+
+    </script>
+</body>
+
+</html>

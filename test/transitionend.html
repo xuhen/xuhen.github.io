@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<head>
+    <title>Learning the DOM</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .toggle-content {
+            display: none;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: height 350ms ease-in-out, opacity 750ms ease-in-out;
+        }
+
+        .show-fast {
+            transition: height 100ms ease-in-out, opacity 300ms ease-in-out;
+        }
+
+        .show-slow {
+            transition: height 2000ms ease-in-out, opacity 2500ms ease-in-out;
+        }
+
+        .toggle-content.is-visible {
+            display: block;
+            height: auto;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <a class="toggle" href="#example">Toggle Div (normal speed)</a>
+    </p>
+
+    <div class="toggle-content" id="example">
+        This content reveals at normal speed.
+    </div>
+
+    <p>
+        <a class="toggle" href="#example-fast">Toggle Div (fast)</a>
+    </p>
+
+    <div class="toggle-content show-fast" id="example-fast">
+        This content reveals quickly.
+    </div>
+
+    <p>
+        <a class="toggle" href="#example-slow">Toggle Div (slow)</a>
+    </p>
+
+    <div class="toggle-content show-slow" id="example-slow">
+        This content reveals at slowly.
+    </div>
+
+
+</body>
+
+
+<script>
+
+
+    // Show an element
+    var show = function (elem) {
+
+        // Get the natural height of the element
+        var getHeight = function () {
+            elem.style.display = 'block'; // Make it visible
+            var height = elem.scrollHeight + 'px'; // Get it's height
+            elem.style.display = ''; //  Hide it again
+            return height;
+        };
+
+        var height = getHeight(); // Get the natural height
+        elem.classList.add('is-visible'); // Make the element visible
+        elem.style.height = height; // Update the max-height
+
+        // Once the transition is complete, remove the inline max-height so the content can scale responsively
+        window.addEventListener('transitionend', function removeHeight(event) {
+            if (!event.propertyName === 'height') return;
+            elem.style.height = '';
+            window.removeEventListener('transitionend', removeHeight, false);
+        }, false);
+
+    };
+
+    // Hide an element
+    var hide = function (elem) {
+
+        // Give the element a height to change from
+        elem.style.height = elem.scrollHeight + 'px';
+
+        // Set the height back to 0
+        window.setTimeout(function () {
+            elem.style.height = '0';
+        }, 1);
+
+        // When the transition is complete, hide it
+        window.addEventListener('transitionend', function removeVisibility(event) {
+            if (!event.propertyName === 'height') return;
+            elem.classList.remove('is-visible');
+            window.removeEventListener('transitionend', removeVisibility, false);
+        }, false);
+
+    };
+
+    // Toggle element visibility
+    var toggle = function (elem, timing) {
+
+        // If the element is visible, hide it
+        if (elem.classList.contains('is-visible')) {
+            hide(elem);
+            return;
+        }
+
+        // Otherwise, show it
+        show(elem);
+
+    };
+
+    // Listen for click events
+    document.addEventListener('click', function (event) {
+
+        // Make sure clicked element is our toggle
+        if (!event.target.classList.contains('toggle')) return;
+
+        // Prevent default link behavior
+        event.preventDefault();
+
+        // Get the content
+        var content = document.querySelector(event.target.hash);
+        if (!content) return;
+
+        // Toggle the content
+        toggle(content);
+
+    }, false);
+
+    var whichTransitionEvent = function () {
+        var el = document.createElement('fakeelement');
+        var transitions = {
+            'transition': 'transitionend',
+            'OTransition': 'oTransitionEnd',
+            'MozTransition': 'transitionend',
+            'WebkitTransition': 'webkitTransitionEnd'
+        }
+
+        for (var t in transitions) {
+            if (el.style[t] !== undefined) {
+                return transitions[t];
+            }
+        }
+    };
+
+    var transition = whichTransitionEvent();
+
+    console.log(transition);
+</script>
+
+</html>

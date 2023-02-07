@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>pie chart</title>
+
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            border: 1px solid red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <canvas id="myChart" width="1000" height="800"></canvas>
+
+
+    <div id="myChart-legend"></div>
+    <script type="text/javascript" src="./chart.js"></script>
+    <script>
+
+
+        var myChart = new PieChart();
+        myChart.init("myChart", 500, 500);
+
+        var data = [
+            {
+                value: 57,
+                color: "#50c0e9",
+                name: "iOS"
+            },
+            {
+                value: 43,
+                color: "#cb97e5",
+                name: "Android"
+            },
+            {
+                value: 11,
+                color: "#a8d324",
+                name: "BlackBerry",
+            },
+            {
+                value: 24,
+                color: "#ffa713",
+                name: "Symbian"
+            },
+            {
+                value: 32,
+                color: "#f83a3a",
+                name: "Windows OS"
+            }
+        ];
+
+        var options = [{
+            // showSliceInfo: true,
+            // donutize: true,
+            legend:
+                [{
+                    containerId: "myChart-legend",
+                    title: "Mobile operating Systems",
+                    columns: ["Operating systems", "Awesomeness", "%"],
+                    showTotal: true,
+                    totalText: " Total :"
+                }]
+        }];
+
+        myChart.draw(data, options); // draw the chart
+    </script>
+
+
+</body>
+
+</html>
